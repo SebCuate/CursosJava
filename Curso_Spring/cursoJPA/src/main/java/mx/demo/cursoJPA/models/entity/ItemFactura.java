@@ -3,9 +3,12 @@ package mx.demo.cursoJPA.models.entity;
 import java.io.Serializable;
 
 import javax.persistence.Entity;
+import javax.persistence.FetchType;
 import javax.persistence.GeneratedValue;
 import javax.persistence.GenerationType;
 import javax.persistence.Id;
+import javax.persistence.JoinColumn;
+import javax.persistence.ManyToOne;
 import javax.persistence.Table;
 
 import lombok.AccessLevel;
@@ -22,7 +25,10 @@ public class ItemFactura implements Serializable {
 	private Long id;
 	
 	private Integer cantidad;
-	private Integer precio;
+	
+	@ManyToOne(fetch = FetchType.LAZY)
+	@JoinColumn(name = "producto_id")
+	private Producto producto;
 	
 //	@OneToMany(fetch = FetchType.LAZY, cascade = CascadeType.ALL, mappedBy = "cliente")
 //	private Factura factura;
@@ -31,8 +37,8 @@ public class ItemFactura implements Serializable {
 	@Setter(AccessLevel.NONE)
 	private static final long serialVersionUID = 1L;
 
-	public Long calcularImporte() {
-		return cantidad.longValue()*precio;
+	public Double calcularImporte() {
+		return cantidad.doubleValue() * producto.getPrecio();
 	}
 	
 }

@@ -3,6 +3,7 @@ package mx.demo.cursoJPA.models.entity;
 import java.io.Serializable;
 import java.util.ArrayList;
 import java.util.Date;
+import java.util.Iterator;
 import java.util.List;
 
 import javax.persistence.CascadeType;
@@ -33,9 +34,9 @@ public class Factura implements Serializable{
 	@GeneratedValue(strategy = GenerationType.IDENTITY)
 	private Long id;
 	
-	private String description;
+	private String descripcion;
 	
-	private String observation;
+	private String observacion;
 	
 	@Temporal(TemporalType.DATE)
 	@Column(name = "create_at")
@@ -44,10 +45,10 @@ public class Factura implements Serializable{
 	@ManyToOne(fetch = FetchType.LAZY)
 	//Fetch es para indicar la forma en que se consulta los tipos de datos que vengan de otra tabla (hijos)
 	//Cascade indica que pasa cuando se modifica o elimina un registro de la tabla
-	private Cliente client;
+	private Cliente cliente;
 	
 	@OneToMany(fetch = FetchType.LAZY, cascade = CascadeType.ALL)
-	@JoinColumn(name = "facutra_id")
+	@JoinColumn(name = "factura_id")
 	private List<ItemFactura> items;
 	
 	@Getter(AccessLevel.NONE)
@@ -66,6 +67,17 @@ public class Factura implements Serializable{
 	
 	public void addItemFactura(ItemFactura item){
 		this.items.add(item);
+	}
+	
+	public Double getTotal() {
+		Double total = 0.0;
+		int size = items.size();
+		
+		for (int i = 0; i < size; i++) {
+			total += items.get(i).calcularImporte();
+		}
+		
+		return total;
 	}
 
 }
