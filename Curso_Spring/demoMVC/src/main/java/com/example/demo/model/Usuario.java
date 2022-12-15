@@ -1,0 +1,59 @@
+package com.example.demo.model;
+
+import lombok.Getter;
+import lombok.Setter;
+
+@Setter
+@Getter
+public class Usuario {
+	
+	private String nombre;
+	private String apellido;
+	private String email;
+	
+	
+	public Usuario(String nombre, String apellido) {
+		super();
+		this.nombre = nombre;
+		this.apellido = apellido;
+	}
+
+	public Usuario(String nombre, String apellido, String email) {
+		super();
+		this.nombre = nombre;
+		this.apellido = apellido;
+		this.email = email;
+	}
+
+	
+//	public String getNombre() {
+//		return nombre;
+//	}
+//
+//
+//	public void setNombre(String nombre) {
+//		this.nombre = nombre;
+//	}
+//
+//
+//	public String getApellido() {
+//		return apellido;
+//	}
+//
+//
+//	public void setApellido(String apellido) {
+//		this.apellido = apellido;
+//	}
+//
+//
+//	public String getEmail() {
+//		return email;
+//	}
+//
+//
+//	public void setEmail(String email) {
+//		this.email = email;
+//	}
+	
+	
+}
